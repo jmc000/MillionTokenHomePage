@@ -12,14 +12,16 @@ contract PixelToken is ERC721 {
     uint256 constant colonnesPixelImage = 1000;
     uint256 totalToken;
     address contractOwner;
-    string constant symbol = "PTC";
-    int constant startingPrice = 1;
+    string constant symbol;
+    int constant startingPrice;
 
     mapping (uint256 => Pixel) pixelList;
 
     constructor() public {
         contractOwner = msg.sender;
         totalToken = lignesPixelImage * colonnesPixelImage;
+        symbol = "PTC";
+        startingPrice = 1;
         uint256 tokenCreated = 0;
         while(tokenCreated != totalToken){
             for(uint256 i = 0; i < lignesPixelImage; i++){
@@ -29,6 +31,19 @@ contract PixelToken is ERC721 {
             }
         }
     }
+
+    /*
+    Restriction
+     */
+
+    modifier contractOwnerOnly(){
+        require(msg.sender == contractOwner);
+        _;
+    }
+
+    /*
+    END OF Restriction
+     */
 
     struct Pixel
     {
@@ -54,5 +69,29 @@ contract PixelToken is ERC721 {
     function modifyPrice(uint256 id, int newPrice) public {
         require(msg.sender == pixelList[id].owner || msg.sender == contractOwner, "You're not authorized to do this.");
         pixelList[id].priceUSD = newPrice;
+    }
+
+    function searchUnique(uint256 _ligne, uint256 _colonne) public{
+        uint256 idSearched = -1;
+        for(int i = 0; i < totalToken; i++){
+            if(pixelList[i].ligne == _ligne && pixelList[i].colonne == _colonne){
+                idSearched = i;
+            }
+        }
+        if(idSearched == -1) break; //effectuez recherches sur le comportement
+        return idSearched;
+    }
+
+    function searchZones(uint256 leftTopCornerX, uint256 leftTopCornerY, uint rightBottomCornerX, uint256 rightBottomCornerY)
+    public returns (uint256[]){
+        contractOwnerOnly();
+        length = (rightBottomCornerX - leftTopCornerX) * (rightBottomCornerY - leftTopCornerY);
+        uint256[length] idPix;
+        int compteur = 0;
+        for(uint256 i = leftTopCornerX; i <= rightBottomCornerX ; i++){
+            for(uint256 j = leftTopCornerY; j <= rightBottomCornerY; j++){
+                idPix[compteur] = searchUnique(i, j);
+            }
+        }
     }
 }
