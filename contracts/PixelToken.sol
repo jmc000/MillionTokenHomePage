@@ -26,7 +26,7 @@ contract PixelToken is ERC721 {
         while(tokenCreated != totalToken){
             for(uint256 i = 0; i < lignesPixelImage; i++){
                 for(uint256 j = 0; j < colonnesPixelImage; j++){
-                    createPixel(i, j, tokenCreated, contractOwner, startingPrice);
+                    createPixel(i, j, tokenCreated, startingPrice);
                 }
             }
         }
@@ -37,7 +37,12 @@ contract PixelToken is ERC721 {
      */
 
     modifier contractOwnerOnly(){
-        require(msg.sender == contractOwner);
+        require(msg.sender == contractOwner, "You're not allowed to do this.");
+        _;
+    }
+
+    modifier validatorOnly(uint256 idPixel){
+        require(msg.sender == pixelList[idPixel].owner || msg.sender == contractOwner, "You're not allowed to do this.");
         _;
     }
 
@@ -47,27 +52,36 @@ contract PixelToken is ERC721 {
 
     struct Pixel
     {
+        uint256 id;
+
         uint256 ligne;
         uint256 colonne;
-        uint256 id;
         address owner;
         int priceUSD;
+        uint8 colorR;
+        uint8 colorG;
+        uint8 colorB;
     }
 
-    function createPixel(uint256 _ligne, uint256 _colonne, uint256 _id, address _owner, int _priceUSD) private {
+    function createPixel(uint256 _id, uint256 _ligne, uint256 _colonne, int _priceUSD) private {
         Pixel memory p;
+
+        p.id = _id;
 
         p.ligne = _ligne;
         p.colonne = _colonne;
-        p.id = _id;
-        p.owner = _owner;
+
+        p.owner = contractOwner;
+
         p.priceUSD = _priceUSD;
+        p.colorR = 0;
+        p.colorG = 0;
+        p.colorB = 0;
 
         pixelList[p.id] = p;
     }
 
-    function modifyPrice(uint256 id, int newPrice) public {
-        require(msg.sender == pixelList[id].owner || msg.sender == contractOwner, "You're not authorized to do this.");
+    function modifyPrice(uint256 id, int newPrice) public con {
         pixelList[id].priceUSD = newPrice;
     }
 
