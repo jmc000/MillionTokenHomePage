@@ -1,0 +1,88 @@
+/* règles de base */
+
+body {
+	background-colog: lightgray;
+	color: black;
+	font-family: sans serif;
+	font-size: 12px;
+	margin-left: 2em;
+	margin-right: 2em;
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
+
+/* entête de la page */
+
+#TitreDePage {
+	background-image: url('../images/header_fr.png');
+	width: 800px;
+	height: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+#TitreDePage span {
+	display: none;
+}
+
+/* pied de page */
+
+footer {
+	border-top-style: dashed;
+	border-top-width: 0.2em;
+	border-top-color: #888000;
+	margin-top: 1em;
+	padding: 0.5em;
+	text-align: center;
+}
+
+/* barre de navigation */
+
+nav {
+	text-align: center;
+}
+
+nav a {
+	display: inline-block;
+	width: 15em;
+	height: 100%;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	text-align: center;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: #123456;
+	border-width : 3px;
+	border-style: solid;
+	border-color: #654321;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+nav a.pageactuelle {
+	border-color: #00FFFF;
+}
+
+nav a:hover {
+	background-color: #ABCDEF;
+}
+
+/* modifications diverses */
+
+strong {
+	display: block;
+	background-color: lightyellow;
+	color: red;
+	font-weight: bolder;
+	padding: 0.5em;
+	border-width: 0.1em;
+	border-style: solid;
+	border-color: #000000;
+	font-size: 1.1em;
+	font-family: courier;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
