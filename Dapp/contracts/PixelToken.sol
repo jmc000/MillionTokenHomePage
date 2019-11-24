@@ -1,6 +1,6 @@
 pragma solidity ^0.5.0;
 
-import "./Sources/ERC721.sol";
+import "./Sources/ERC721XToken.sol";
 
 contract PixelToken is ERC721 {
     uint256 constant lignesPixelImage = 10000;
