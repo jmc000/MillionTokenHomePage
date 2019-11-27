@@ -1,11 +1,11 @@
 pragma solidity ^0.5.6;
 
-import "ERC721X.sol";
+import "./ERC721X.sol";
 
-import "ERC721XReceiver.sol";
-import "ERC721XTokenNFT.sol";
+import "./ERC721XReceiver.sol";
+import "./ERC721XTokenNFT.sol";
 
-import "./../../Libraries/Address.sol";
+import "./../../node_modules/openzeppelin-solidity/contracts/utils/Address.sol";
 import "./../../Libraries/ObjectsLib.sol";
 
 
@@ -139,6 +139,7 @@ contract ERC721XToken is ERC721X, ERC721XTokenNFT {
             bytes4 retval = ERC721XReceiver(_to).onERC721XBatchReceived(
                 msg.sender, _from, _tokenIds, _amounts, _data
             );
+            /* solium-disable-next-line */
             require(retval == ERC721X_BATCH_RECEIVE_SIG);
         }
     }
@@ -155,6 +156,7 @@ contract ERC721XToken is ERC721X, ERC721XTokenNFT {
         internal
         isOperatorOrOwner(_from)
     {
+        /* solium-disable-next-line */
         require(tokenType[_tokenId] == FT);
         require(_amount <= balanceOf(_from, _tokenId), "Quantity greater than from balance");
         require(_to != address(0), "Invalid to address");

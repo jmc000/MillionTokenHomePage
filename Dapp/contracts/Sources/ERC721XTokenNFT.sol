@@ -1,9 +1,9 @@
 pragma solidity ^0.5.6;
 
-import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
-import "openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol";
-import "openzeppelin-solidity/contracts/utils/Address.sol";
-import "../../Libraries/ObjectsLib.sol";
+import "../../node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+import "../../node_modules/openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol";
+import "./../../node_modules/openzeppelin-solidity/contracts/utils/Address.sol";
+import "./../../Libraries/ObjectsLib.sol";
 
 
 // Packed NFT that has storage which is batch transfer compatible
@@ -185,12 +185,13 @@ contract ERC721XTokenNFT is ERC721 {
     function tokenURI(uint256 _tokenId) public view returns (string memory) {
         require(exists(_tokenId), "Token doesn't exist");
         return string(abi.encodePacked(
-            baseTokenURI, 
+            baseTokenURI,
             uint2str(_tokenId),
             ".json"
         ));
     }
 
+    /* solium-disable-next-line */
    function uint2str(uint _i) private pure returns (string memory _uintAsString) {
         if (_i == 0) {
             return "0";
@@ -286,7 +287,7 @@ contract ERC721XTokenNFT is ERC721 {
         internal
     {
         (uint256 bin, uint256 index) = _tokenId.getTokenBinIndex();
-        packedTokenBalance[_from][bin] =
+        packedTokenBalance[_from][bin] = 
             packedTokenBalance[_from][bin].updateTokenBalance(
                 index, _amount, op
         );

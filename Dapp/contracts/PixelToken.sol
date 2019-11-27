@@ -1,22 +1,23 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.6;
 
 import "./Sources/ERC721XToken.sol";
 
-contract PixelToken is ERC721 {
+//@title One Million Dollar Project
+
+contract PixelToken is ERC721XToken {
     uint256 constant lignesPixelImage = 10000;
     uint256 constant colonnesPixelImage = 10000;
     uint256 totalToken;
     address contractOwner;
-    string constant symbol;
-    int constant startingPrice;
+    string constant symbol = "PTC";
+    /* solium-disable-next-line */
+    fixed constant startingPrice = 0.01;
 
     mapping (uint256 => Pixel) pixelList;
 
     constructor() public {
         contractOwner = msg.sender;
         totalToken = lignesPixelImage * colonnesPixelImage;
-        symbol = "PTC";
-        startingPrice = 0.01;
         uint256 tokenCreated = 0;
         for(uint256 i = 0; i < lignesPixelImage; i++){
             for(uint256 j = 0; j < colonnesPixelImage; j++){
@@ -50,10 +51,12 @@ contract PixelToken is ERC721 {
         uint256 ligne;
         uint256 colonne;
         address owner;
-        int priceETH;
+        /* solium-disable-next-line */
+        fixed priceETH;
     }
 
-    function createPixel(uint256 _id, uint256 _ligne, uint256 _colonne, int _priceETH) private {
+/* solium-disable-next-line */
+    function createPixel(uint256 _id, uint256 _ligne, uint256 _colonne, fixed _priceETH) private {
         Pixel memory p;
 
         p.id = _id;
@@ -68,31 +71,31 @@ contract PixelToken is ERC721 {
         pixelList[p.id] = p;
     }
 
-    function modifyPrice(uint256 id, int newPrice) public tokenOwnerOnly() {
+/* solium-disable-next-line */
+    function modifyPrice(uint256 id, fixed newPrice) public tokenOwnerOnly(id) {
         pixelList[id].priceETH = newPrice;
     }
 
-    function searchUnique(uint256 _ligne, uint256 _colonne) internal returns (uint256){
-        uint256 idSearched = -1;
-        for(int i = 0; i < totalToken; i++){
+    function searchUnique(uint256 _ligne, uint256 _colonne) internal returns (int){
+        int256 idSearched = -1;
+        for(uint8 i = 0; i < totalToken; i++){
             if(pixelList[i].ligne == _ligne && pixelList[i].colonne == _colonne){
                 idSearched = i;
             }
         }
-        if(idSearched == -1) break; //effectuez recherches sur le comportement
         return idSearched;
     }
 
     function searchZones(uint256 leftTopCornerX, uint256 leftTopCornerY, uint rightBottomCornerX, uint256 rightBottomCornerY) internal
-    returns (uint256[]){
-        aire = (rightBottomCornerX - leftTopCornerX) * (rightBottomCornerY - leftTopCornerY);
-        uint256 tailleTab;
+    returns (int[] memory){
+        uint256 aire = (rightBottomCornerX - leftTopCornerX) * (rightBottomCornerY - leftTopCornerY);
+        uint256 tailleTab = 0;
         if(aire!=0) tailleTab = aire;
         if(((rightBottomCornerX - leftTopCornerX)==0) && ((rightBottomCornerY - leftTopCornerY)==0)) tailleTab = 1;
         if((rightBottomCornerX - leftTopCornerX)==0) tailleTab = (rightBottomCornerY - leftTopCornerY);
         if((rightBottomCornerY - leftTopCornerY)==0) tailleTab = (rightBottomCornerX - leftTopCornerX);
-        uint256[tailleTab] idPix;
-        int compteur = 0;
+        int[] memory idPix = new int[](tailleTab);
+        uint256 compteur = 0;
         for(uint256 i = leftTopCornerX; i <= rightBottomCornerX ; i++){
             for(uint256 j = leftTopCornerY; j <= rightBottomCornerY; j++){
                 idPix[compteur] = searchUnique(i, j);
@@ -106,9 +109,11 @@ contract PixelToken is ERC721 {
     Exchanges
     */
 
-    function priceCalculating(uint256[] tab) internal returns (uint256){
-        uint256 totalPriceETH = 0;
-        for(int i = 0; i < tab.length; i++)
+/* solium-disable-next-line */
+    function priceCalculating(uint256[] memory tab) internal returns (fixed){
+/* solium-disable-next-line */
+        fixed totalPriceETH = 0;
+        for(uint i = 0; i < tab.length; i++)
         {
             totalPriceETH += pixelList[tab[i]].priceETH;
         }
