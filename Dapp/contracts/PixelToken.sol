@@ -53,6 +53,7 @@ contract PixelToken is ERC721XToken {
         address owner;
         /* solium-disable-next-line */
         fixed priceETH;
+        bool statutVente;
     }
 
 /* solium-disable-next-line */
@@ -67,6 +68,7 @@ contract PixelToken is ERC721XToken {
         p.owner = contractOwner;
 
         p.priceETH = _priceETH;
+        p.statutVente = true;
 
         pixelList[p.id] = p;
     }
@@ -76,7 +78,7 @@ contract PixelToken is ERC721XToken {
         pixelList[id].priceETH = newPrice;
     }
 
-    function searchUnique(uint256 _ligne, uint256 _colonne) internal returns (int){
+    function searchUnique(uint256 _ligne, uint256 _colonne) internal view returns (int){
         int256 idSearched = -1;
         for(uint8 i = 0; i < totalToken; i++){
             if(pixelList[i].ligne == _ligne && pixelList[i].colonne == _colonne){
@@ -87,7 +89,7 @@ contract PixelToken is ERC721XToken {
     }
 
     function searchZones(uint256 leftTopCornerX, uint256 leftTopCornerY, uint rightBottomCornerX, uint256 rightBottomCornerY) internal
-    returns (int[] memory){
+    view returns (int[] memory){
         uint256 aire = (rightBottomCornerX - leftTopCornerX) * (rightBottomCornerY - leftTopCornerY);
         uint256 tailleTab = 0;
         if(aire!=0) tailleTab = aire;
@@ -105,12 +107,13 @@ contract PixelToken is ERC721XToken {
         return idPix;
     }
 
+
     /*
     Exchanges
     */
 
 /* solium-disable-next-line */
-    function priceCalculating(uint256[] memory tab) internal returns (fixed){
+    function priceReturn(uint256[] memory tab) internal view returns (fixed){
 /* solium-disable-next-line */
         fixed totalPriceETH = 0;
         for(uint i = 0; i < tab.length; i++)
@@ -118,6 +121,13 @@ contract PixelToken is ERC721XToken {
             totalPriceETH += pixelList[tab[i]].priceETH;
         }
         return totalPriceETH;
+    }
+
+    function saleStatus(uint256[] memory tab, bool stat) public {
+        for(uint i = 0; i < tab.length; i++){
+            tokenOwnerOnly(tab[i]);
+
+        }
     }
 
     /*
