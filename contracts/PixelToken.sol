@@ -72,13 +72,12 @@ contract PixelToken is ERC721 {
     }
 
     function searchUnique(uint256 _ligne, uint256 _colonne) public{
-        uint256 idSearched = -1;
         for(int i = 0; i < totalToken; i++){
             if(pixelList[i].ligne == _ligne && pixelList[i].colonne == _colonne){
                 idSearched = i;
             }
         }
-        if(idSearched == -1) break; //effectuez recherches sur le comportement
+        if(idSearched == nul) break; //effectuez recherches sur le comportement
         return idSearched;
     }
 
