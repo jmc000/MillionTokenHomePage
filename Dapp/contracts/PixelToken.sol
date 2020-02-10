@@ -3,8 +3,8 @@ pragma solidity ^0.5.6;
 //@title One Million Dollar Project
 
 contract PixelToken{
-    uint256 constant lignesPixelImage = 10000;
-    uint256 constant colonnesPixelImage = 10000;
+    uint256 constant lignesPixelImage = 1000;
+    uint256 constant colonnesPixelImage = 1000;
     uint256 totalToken;
     address contractOwner;
     string constant symbol = "PTC";
