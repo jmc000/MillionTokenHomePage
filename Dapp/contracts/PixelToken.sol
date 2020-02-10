@@ -87,7 +87,7 @@ contract PixelToken{
     }
 
     function searchZones(uint256 leftTopCornerX, uint256 leftTopCornerY, uint rightBottomCornerX, uint256 rightBottomCornerY) internal
-    view returns (int[] memory){
+    view returns (int[] memory){    //rajouter restrictions pour éviter monopole
         uint256 aire = (rightBottomCornerX - leftTopCornerX) * (rightBottomCornerY - leftTopCornerY);
         uint256 tailleTab = 0;
         if(aire!=0) tailleTab = aire;
