@@ -1,10 +1,8 @@
-pragma solidity ^0.6.1;
-
-import "./Sources/ERC721XToken.sol";
+pragma solidity ^0.5.6;
 
 //@title One Million Dollar Project
 
-contract PixelToken is ERC721XToken {
+contract PixelToken{
     uint256 constant lignesPixelImage = 10000;
     uint256 constant colonnesPixelImage = 10000;
     uint256 totalToken;
@@ -123,13 +121,14 @@ contract PixelToken is ERC721XToken {
         return totalPriceETH;
     }
 
+    /*
     function saleStatus(uint256[] memory tab, bool stat) public {
         for(uint i = 0; i < tab.length; i++){
             tokenOwnerOnly(tab[i]);
 
         }
     }
-
+    */
     /*
     END of Exchanges
     */
