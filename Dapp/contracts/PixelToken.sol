@@ -8,8 +8,7 @@ contract PixelToken{
     uint256 totalToken;
     address contractOwner;
     string constant symbol = "PTC";
-    /* solium-disable-next-line */
-    fixed constant startingPrice = 0.01;
+    int constant startingPrice = 1;
 
     mapping (uint256 => Pixel) pixelList;
 
@@ -19,7 +18,8 @@ contract PixelToken{
         uint256 tokenCreated = 0;
         for(uint256 i = 0; i < lignesPixelImage; i++){
             for(uint256 j = 0; j < colonnesPixelImage; j++){
-                createPixel(i, j, tokenCreated, startingPrice);
+                createPixel(tokenCreated, i, j, startingPrice);
+                tokenCreated++;
             }
         }
     }
@@ -49,13 +49,12 @@ contract PixelToken{
         uint256 ligne;
         uint256 colonne;
         address owner;
-        /* solium-disable-next-line */
-        fixed priceETH;
+        int priceETH;
         bool statutVente;
     }
 
 /* solium-disable-next-line */
-    function createPixel(uint256 _id, uint256 _ligne, uint256 _colonne, fixed _priceETH) private {
+    function createPixel(uint256 _id, uint256 _ligne, uint256 _colonne, int _priceETH) private {
         Pixel memory p;
 
         p.id = _id;
@@ -71,8 +70,7 @@ contract PixelToken{
         pixelList[p.id] = p;
     }
 
-/* solium-disable-next-line */
-    function modifyPrice(uint256 id, fixed newPrice) public tokenOwnerOnly(id) {
+    function modifyPrice(uint256 id, int newPrice) public tokenOwnerOnly(id) {
         pixelList[id].priceETH = newPrice;
     }
 
@@ -87,14 +85,14 @@ contract PixelToken{
     }
 
     function searchZones(uint256 leftTopCornerX, uint256 leftTopCornerY, uint rightBottomCornerX, uint256 rightBottomCornerY) internal
-    view returns (int[] memory){    //rajouter restrictions pour éviter monopole
+    view returns (uint256[] memory){    //rajouter restrictions pour éviter monopole
         uint256 aire = (rightBottomCornerX - leftTopCornerX) * (rightBottomCornerY - leftTopCornerY);
         uint256 tailleTab = 0;
         if(aire!=0) tailleTab = aire;
         if(((rightBottomCornerX - leftTopCornerX)==0) && ((rightBottomCornerY - leftTopCornerY)==0)) tailleTab = 1;
         if((rightBottomCornerX - leftTopCornerX)==0) tailleTab = (rightBottomCornerY - leftTopCornerY);
         if((rightBottomCornerY - leftTopCornerY)==0) tailleTab = (rightBottomCornerX - leftTopCornerX);
-        int[] memory idPix = new int[](tailleTab);
+        uint256[] memory idPix = new int[](tailleTab);
         uint256 compteur = 0;
         for(uint256 i = leftTopCornerX; i <= rightBottomCornerX ; i++){
             for(uint256 j = leftTopCornerY; j <= rightBottomCornerY; j++){
@@ -110,10 +108,8 @@ contract PixelToken{
     Exchanges
     */
 
-/* solium-disable-next-line */
-    function priceReturn(uint256[] memory tab) internal view returns (fixed){
-/* solium-disable-next-line */
-        fixed totalPriceETH = 0;
+    function priceReturn(uint256[] memory tab) internal view returns (int){
+        int totalPriceETH = 0;
         for(uint i = 0; i < tab.length; i++)
         {
             totalPriceETH += pixelList[tab[i]].priceETH;
@@ -121,13 +117,55 @@ contract PixelToken{
         return totalPriceETH;
     }
 
-    /*
-    function saleStatus(uint256[] memory tab, bool stat) public {
-        for(uint i = 0; i < tab.length; i++){
-            tokenOwnerOnly(tab[i]);
+    function saleStatusUnique(uint256 memory _id, bool statut) internal view tokenOwnerOnly(_id){
+        pixelList[_id].statutVente = statut;
+    }
 
+    function saleStatusGroup(uint256[] memory tab, bool statut) public{
+        for(uint i = 0; i < tab.length; i++){
+            saleStatusUnique(tab[i], statut);
         }
     }
+
+    function statusVerification(uint256[] _idList) internal view returns (bool){
+        bool memory statGen = true;
+        for(uint i = 0; i < _idList.length; i++)
+        {
+            if(_idList[i] != true){
+                statGen = false;
+            }
+        }
+        return statGen;
+    }
+
+    /*
+    function buy(int _prixTot) public payable{
+
+    }
+
+
+    function buy(uint256[] _idList) public{
+        if(statusVerification(_idList) != true) ***NOTIFIER STATUT GENERAL (OK POUR VENTE TOTALE OU ERREUR CAR PIXEL PAS EN VENTE)***;
+        int prixTot = priceReturn(_idList);
+        ***NOTIFICATION DE L'ACHETEUR DU PRIX TOTAL*** => Y/N
+        ***SI NON => ACHAT ANNULE, MESSAGE DE CONFIRMATION***
+        ***SI OUI => BASCULE SUR FONCTION PAYABLE AVEC LIST ID + FONCTION TRANSFERT DE PROPRIETE***
+        buy(_idList, prixTot);
+        ***RETOUR EVENT ACHAT***
+    }
+
+    */
+
+    /*
+
+    achat:
+    - sélection zone depuis site
+    - entrée coordonnée
+    - assistance avec utilisateur donnant taille image et recherche automatique de zone compatible
+
+    /!\ statutVente à false si achat réussi
+    /!\ détermination  des statuts payable pour certaines fonctions
+
     */
     /*
     END of Exchanges
