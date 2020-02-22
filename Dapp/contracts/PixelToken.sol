@@ -12,6 +12,22 @@ contract PixelToken{
 
     mapping (uint256 => Pixel) pixelList;
 
+    //  EVENTS
+
+    event achatReussi(){
+
+    }
+
+    event affichageMessage(){
+
+    }
+
+    event qA(){
+
+    }
+
+    //  END OF EVENTS
+
     constructor() public {
         contractOwner = msg.sender;
         totalToken = lignesPixelImage * colonnesPixelImage;
@@ -30,6 +46,11 @@ contract PixelToken{
 
     modifier contractOwnerOnly(){
         require(msg.sender == contractOwner, "You're not allowed to do this.");
+        _;
+    }
+
+    modifier balanceSuffisante(address ad, int balanceMin){
+        require(ad.balance >= balanceMin)
         _;
     }
 
@@ -117,13 +138,13 @@ contract PixelToken{
         return totalPriceETH;
     }
 
-    function saleStatusUnique(uint256 memory _id, bool statut) internal view tokenOwnerOnly(_id){
-        pixelList[_id].statutVente = statut;
+    function saleStatusUnique(uint256 memory _id, bool status) internal view tokenOwnerOnly(_id){
+        pixelList[_id].statutVente = status;
     }
 
-    function saleStatusGroup(uint256[] memory tab, bool statut) public{
+    function saleStatusGroup(uint256[] memory tab, bool status) public{
         for(uint i = 0; i < tab.length; i++){
-            saleStatusUnique(tab[i], statut);
+            saleStatusUnique(tab[i], status);
         }
     }
 
@@ -138,20 +159,30 @@ contract PixelToken{
         return statGen;
     }
 
+    function transfer(uint256 _id, address _newOwner) internal view{
+        _id.owner = _newOwner;
+        _id.statutVente = false;
+    }
+
     /*
-    function buy(int _prixTot) public payable{
+    function pay(uint256 _id, int _prix) internal view payable balanceSuffisante(msg.sender, _prix){
 
     }
 
 
     function buy(uint256[] _idList) public{
-        if(statusVerification(_idList) != true) ***NOTIFIER STATUT GENERAL (OK POUR VENTE TOTALE OU ERREUR CAR PIXEL PAS EN VENTE)***;
         int prixTot = priceReturn(_idList);
-        ***NOTIFICATION DE L'ACHETEUR DU PRIX TOTAL*** => Y/N
-        ***SI NON => ACHAT ANNULE, MESSAGE DE CONFIRMATION***
-        ***SI OUI => BASCULE SUR FONCTION PAYABLE AVEC LIST ID + FONCTION TRANSFERT DE PROPRIETE***
-        buy(_idList, prixTot);
-        ***RETOUR EVENT ACHAT***
+        if(statusVerification(_idList) == true && msg.sender.balance >= prixTot){        ***NOTIFIER STATUT GENERAL (OK POUR VENTE TOTALE OU ERREUR CAR PIXEL PAS EN VENTE)***
+            ***NOTIFICATION DE L'ACHETEUR DU PRIX TOTAL*** => Y/N
+            ***SI NON => ACHAT ANNULE, MESSAGE DE CONFIRMATION***
+            ***SI OUI => BASCULE SUR FONCTION PAYABLE AVEC LIST ID + FONCTION TRANSFERT DE PROPRIETE***
+            for(uint i = 0; i < _idList.length; i++){
+                pay(_idList[i], )
+                transfer(_idList[i], msg.sender);
+            }
+            ***RETOUR EVENT ACHAT***
+        }
+        else emit
     }
 
     */
@@ -165,8 +196,10 @@ contract PixelToken{
 
     /!\ statutVente à false si achat réussi
     /!\ détermination  des statuts payable pour certaines fonctions
+    /!\ créer tests unitaires et tests d'intégration
 
     */
+
     /*
     END of Exchanges
     */
