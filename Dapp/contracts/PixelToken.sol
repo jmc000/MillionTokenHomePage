@@ -9,8 +9,10 @@ contract PixelToken{
     address contractOwner;
     string constant symbol = "PTC";
     int constant startingPrice = 1;
+    bool userAnswer;
 
     mapping (uint256 => Pixel) pixelList;
+    mapping (address => uint256) fundsPerOwner;
 
     constructor() public {
         contractOwner = msg.sender;
@@ -24,22 +26,46 @@ contract PixelToken{
         }
     }
 
+    function setAnswer(bool _userAnswer) public{
+        userAnswer = _userAnswer;
+    }
+
     /*
     Restriction
      */
 
     modifier contractOwnerOnly(){
-        require(msg.sender == contractOwner, "You're not allowed to do this.");
+        require(msg.sender == contractOwner, "Vous n'êtes pas le propriétaire du contrat.");
         _;
     }
 
     modifier tokenOwnerOnly(uint256 idPixel){
-        require(msg.sender == pixelList[idPixel].owner, "You're not allowed to do this.");
+        require(msg.sender == pixelList[idPixel].owner, "Vous n'êtes pas le propriétaire du token.");
         _;
     }
 
     /*
     END OF Restriction
+     */
+
+    /*
+    EVENTS
+    */
+
+    event statut(
+        bool statutV
+    );
+
+    event sendInterface(
+        string res
+    );
+
+    event prix(
+        int prixTot
+    );
+
+    /*
+    END OF events
      */
 
     struct Pixel
@@ -53,7 +79,6 @@ contract PixelToken{
         bool statutVente;
     }
 
-/* solium-disable-next-line */
     function createPixel(uint256 _id, uint256 _ligne, uint256 _colonne, int _priceETH) private {
         Pixel memory p;
 
@@ -138,35 +163,36 @@ contract PixelToken{
         return statGen;
     }
 
-    /*
-    function buy(int _prixTot) public payable{
-
+    function fundsRefunds(uint256[] _idList) internal {
+        for(int i = 0; i < _idList.length(); i++){
+            contractOwner.send(fundsPerOwner(_idList[i].owner));
+        }
+    }
+    
+    function exchange(uint256[] _idList, int _prixTot) internal payable{
+        for(int i = 0; i < _idList.length(); i++){
+            msg.value += _idList[i].priceETH;
+            fundsPerOwner(_idList[i].owner) += _idList[i].priceETH;
+            _idList[i].owner = msg.sender;
+        }
     }
 
 
     function buy(uint256[] _idList) public{
-        if(statusVerification(_idList) != true) ***NOTIFIER STATUT GENERAL (OK POUR VENTE TOTALE OU ERREUR CAR PIXEL PAS EN VENTE)***;
-        int prixTot = priceReturn(_idList);
-        ***NOTIFICATION DE L'ACHETEUR DU PRIX TOTAL*** => Y/N
-        ***SI NON => ACHAT ANNULE, MESSAGE DE CONFIRMATION***
-        ***SI OUI => BASCULE SUR FONCTION PAYABLE AVEC LIST ID + FONCTION TRANSFERT DE PROPRIETE***
-        buy(_idList, prixTot);
-        ***RETOUR EVENT ACHAT***
+        bool stat = statusVerification(_idList);
+        emit statut(stat);
+        if(stat == true){
+            int prixTot = priceReturn(_idList);
+            emit sendInterface("The price of this transaction is of " + prixTot + " ETH");
+            //await réponse du site pour userAnswer
+            if(userAnswer){
+                exchange(_idList, prixTot);
+                fundsRefunds(_idList);
+            }
+        }
     }
 
-    */
 
-    /*
-
-    achat:
-    - sélection zone depuis site
-    - entrée coordonnée
-    - assistance avec utilisateur donnant taille image et recherche automatique de zone compatible
-
-    /!\ statutVente à false si achat réussi
-    /!\ détermination  des statuts payable pour certaines fonctions
-
-    */
     /*
     END of Exchanges
     */
