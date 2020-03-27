@@ -4,9 +4,9 @@ pragma solidity ^0.6.0;
 
 contract PixelToken{
 
-    uint256 constant lignesPixelImage = 1000;
-    uint256 constant colonnesPixelImage = 1000;
-    uint256 totalToken;
+    uint256 public constant lignesPixelImage = 1000;
+    uint256 public constant colonnesPixelImage = 1000;
+    uint256 public totalToken;
     uint public nbOfPixels = 0;
     address payable contractOwner;
     string constant symbol = "PTC";
@@ -17,11 +17,6 @@ contract PixelToken{
     constructor() public {
         contractOwner = msg.sender;
         totalToken = lignesPixelImage * colonnesPixelImage;
-        // for(uint256 i = 1; i <= lignesPixelImage; i++){
-        //     for(uint256 j = 1; j <= colonnesPixelImage; j++){
-        //         createPixel(i, j, getInitialPixelPrice(i, j),true); //true = we put directly the created pixel "on sale"
-        //     }
-        // }
     }
 
     struct Pixel
