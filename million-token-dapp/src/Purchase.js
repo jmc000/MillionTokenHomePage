@@ -52,19 +52,21 @@ class Purchase extends Component {
             <h1 className="textAlign">Purchases</h1>
 
             <br/><br/>
-            <label for="text">Select the number of pixels: </label>
-            <input type="text" id="text" name="text" accept="integer"/>
-            <br/><br/>
-
-            <label for="file">Import your image file: </label>
+            <label for="text">Enter the url to which your pixel will redirect: </label>&nbsp;&nbsp;
+            <input type="text" id="text" name="text" accept="integer" width="10"/>
+            <br/>
+            <label for="text">Enter the message that will appear when someone has the mouse on your Pixel: </label>&nbsp;&nbsp;
+            <input type="text" id="text" name="text" accept="integer" width="10"/>
+            <br/>
+            <label for="file">Import your image file: </label>&nbsp;&nbsp;
             <input type="file" id="file" name="file" accept="image/png, image/jpeg"/>
             <br/><br/><br/>
 
-            <a href="index.html">
+            <a>
                 <button>Cancel</button>
             </a>&nbsp;&nbsp;
             <a><button>Buy</button></a>
-
+            <br/><br/><br/><br/>
             <a>
                 <button onClick={createPixel}>Create a Pixel !</button>
             </a>
