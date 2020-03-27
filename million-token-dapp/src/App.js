@@ -4,6 +4,10 @@ import './App.css';
 import { PIXEL_TOKEN_ABI, PIXEL_TOKEN_ADDRESS } from './config.js';
 // import PixelToken_json from './PixelToken.json'
 // import CONTRACT_ADDRESS from './contract_address.json'
+import Nav from './Nav';
+import About from './About';
+import School from './School';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class App extends Component {
 
@@ -37,11 +41,20 @@ class App extends Component {
 
   render() {
     return(
-      <div className="container">
-        <h1>Hello, world!</h1>
-        <p>Your account: {this.state.account}</p>
-        <p>Number of pixels: {this.state.nbOfPixels}</p>
-      </div>
+      <Router>
+        <div>
+          <div className="App">
+            <Nav />
+            <Route path="/about" component={About}/>
+            <Route path="/school" component={School}/>
+          </div>
+          <div className="web3_test">
+            <h1>Hello, world!</h1>
+            <p>Your account: {this.state.account}</p>
+            <p>Number of pixels: {this.state.nbOfPixels}</p>
+          </div>
+        </div>
+      </Router>
     );
   }
 
