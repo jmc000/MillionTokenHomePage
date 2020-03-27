@@ -1,4 +1,4 @@
-export const PIXEL_TOKEN_ADDRESS = '0x7E3095625488192e38c7eefdeDd3840dac06E7d9'
+export const PIXEL_TOKEN_ADDRESS = '0x24DEc691036dd72FAa882CcFEeB9D77a61E70437'
 
 export const PIXEL_TOKEN_ABI = [
   {
@@ -125,34 +125,6 @@ export const PIXEL_TOKEN_ABI = [
     ],
     "name": "tokenPriceModified",
     "type": "event"
-  },
-  {
-    "inputs": [],
-    "name": "colonnesPixelImage",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
-  },
-  {
-    "inputs": [],
-    "name": "lignesPixelImage",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
   },
   {
     "inputs": [],
@@ -295,12 +267,12 @@ export const PIXEL_TOKEN_ABI = [
   },
   {
     "inputs": [],
-    "name": "totalToken",
+    "name": "symbol",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "stateMutability": "view",

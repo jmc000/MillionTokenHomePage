@@ -14,3 +14,7 @@ nav{
     align-items: center;
     list-style: none;
 }
+
+.textAlign{
+    text-align: center;
+}

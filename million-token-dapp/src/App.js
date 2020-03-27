@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
 import { PIXEL_TOKEN_ABI, PIXEL_TOKEN_ADDRESS } from './config.js';
-// import PixelToken_json from './PixelToken.json'
-// import CONTRACT_ADDRESS from './contract_address.json'
 import Nav from './Nav';
 import About from './About';
 import School from './School';
@@ -56,23 +54,19 @@ class App extends Component {
               <Route path="/school" component={School}/>
             </Switch>
           </div>
-          {/* <div className="web3_test">
-            <h1>Hello, world!</h1>
-            <p>Your account: {this.state.account}</p>
+          <div className="web3_test">
+            {/* <h1>Hello, world!</h1>
+            <p>Your account: {this.state.account}</p> */}
+            <br/><br/><br/><br/><br/>
+            <p>Your ethereum address: {this.state.account}</p>
             <p>Number of pixels: {this.state.nbOfPixels}</p>
-          </div> */}
+          </div>
         </div>
       </Router>
     );
   }
 
 }
-
-// const Home = () => (
-//   <div>
-//     <h1>Home page</h1>
-//   </div>
-// );
 
 
 
