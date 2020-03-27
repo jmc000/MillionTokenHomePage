@@ -4,14 +4,14 @@ pragma solidity ^0.6.0;
 
 contract PixelToken{
 
-    uint256 public constant lignesPixelImage = 1000;
-    uint256 public constant colonnesPixelImage = 1000;
-    uint256 public totalToken;
+    uint256 constant lignesPixelImage = 1000;
+    uint256 constant colonnesPixelImage = 1000;
+    uint256 totalToken;
     uint public nbOfPixels = 0;
     address payable contractOwner;
-    string constant symbol = "PTC";
+    string public constant symbol = "PXL";
     //we choose the price according to the area of the pixel
-    uint[] startingPrices = [10,20,50];   //price in wei (10^-18 eth)
+    uint[] startingPrices = [10 wei,20 wei,50 wei];
     bool userAnswer;
 
     constructor() public {
@@ -32,8 +32,6 @@ contract PixelToken{
 
     mapping (uint256 => Pixel) public pixelList;   // pixelId => Pixel
     mapping (uint => Pixel) public pixelForSale;
-    // mapping (uint => bool) public linesNotAvailable;
-    // mapping (uint => bool) public columnsNotAvailable;
     mapping (uint => mapping (uint => bool)) public pairNotAvailable;
 
     /* GET THE INITIAL PRICE ACCORDING TO THE PIXEL COORD */
@@ -61,8 +59,7 @@ contract PixelToken{
         require(msg.sender == contractOwner, "Error, you are not the owner of the contract.");
         _;
     }
-    
-    function createPixel(uint256 _line, uint256 _column, bool _onSale) public onlyContractOwner() {
+    function createPixel(uint256 _line, uint256 _column, bool _onSale) public {
         require(nbOfPixels < totalToken,"Error, can't create more pixel.");
         require( 0 < _line && _line < 1000 && 0 < _column && _column < 1000,
         "Error, line and column indexes out of range.");
