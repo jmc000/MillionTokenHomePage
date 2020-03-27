@@ -6,50 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="style1.css"/>
-    <script language="javascript" type="text/javascript" src="./dist/web3.min.js"></script>
-    <script language="javascript" type="text/javascript" src="./scripts/pixelToken_abi.js"></script>
     <title>OneMillionTokenHomepage</title>
 </head>
 <body>
-    <!-- ______________________ web3.js ______________________ -->
-    <script>
-        var pixelToken;
-
-        function startApp() {
-            var pixelTokenAddress = "0x7E3095625488192e38c7eefdeDd3840dac06E7d9";
-            pixelToken = new web3js.eth.Contract(pixelTokenABI,pixelTokenAddress);
-        }
-
-        function getNbOfPixels() {
-            return pixelTokenAddress.methods.nbOfPixels()
-        }
-
-        getNbOfPixels().then(function(result) {
-            console.log("Number of pixels: " + JSON.stringify(result));
-        });
-
-        window.addEventListener('load', function() {
-            // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-            if (typeof web3 !== 'undefined') {
-                // Use Mist/MetaMask's provider
-                web3js = new Web3(web3.currentProvider);
-            } else {
-                // Handle the case where the user doesn't have web3. Probably
-                // show them a message telling them to install Metamask in
-                // order to use our app.
-            }
-            // Now you can start your app & access web3js freely:
-            startApp()
-        })
-    </script>
-    <!-- ______________________ end web3.js ______________________ -->
-
-
-
     <header>
-        <!-- <button class="enableEthereumButton">Enable Ethereum</button> -->
-        <h2>Account: <span class="showAccount"></span></h2>
-
         <div>
             <img src="test_logo.jpg" alt="logo" class="left" style="float:left;"/>
             <p class="right" style=" text-align: right; float:right;">
@@ -3410,4 +3370,4 @@
     </body>
 </html>
 
-<script src="scripts/main.js"></script>
+<!-- <script src="scripts/main.js"></script> -->
