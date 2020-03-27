@@ -45,18 +45,18 @@ module.exports = {
     //
     development: {
      host: "127.0.0.1",     // Localhost (default: none)
-     port: 7545,            // Standard Ethereum port (default: none)
-     network_id: "5777",       // Any network (default: none)
+     port: 8545,            // Standard Ethereum port (default: none)
+     network_id: "*",       // Any network (default: none)
     },
-    // rinkeby: {
-    //   provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/df9dfa5d47f24af6b5566cc9d97da46c`),
-    //   network_id: 4,       // Ropsten's id
-    //   gas: 4500000,
-    //   gasPrice: 10000000000,       // Ropsten has a lower block limit than mainnet
-    //   // confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-    //   // timeoutBlocks: 2000,  // # of blocks before a deployment times out  (minimum/default: 50)
-    //   // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
-    // },
+    rinkeby: {
+      provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/df9dfa5d47f24af6b5566cc9d97da46c`),
+      network_id: 4,       // Rinkeby's id
+      gas: 4500000,
+      gasPrice: 10000000000,       // Rinkeby has a lower block limit than mainnet
+      // confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+      // timeoutBlocks: 2000,  // # of blocks before a deployment times out  (minimum/default: 50)
+      // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+    },
 
     // Another network with more advanced options...
     // advanced: {
