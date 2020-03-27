@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
 import { PIXEL_TOKEN_ABI, PIXEL_TOKEN_ADDRESS } from './config.js';
-import PixelToken_json from './PixelToken.json'
+// import PixelToken_json from './PixelToken.json'
 // import CONTRACT_ADDRESS from './contract_address.json'
 
 class App extends Component {
@@ -24,10 +24,10 @@ class App extends Component {
     this.setState({ account: accounts[0]})
 
     //load the smart contract
-    var myContract = new web3.eth.Contract(PixelToken_json.abi, PIXEL_TOKEN_ADDRESS);
+    var myContract = new web3.eth.Contract(PIXEL_TOKEN_ABI, PIXEL_TOKEN_ADDRESS);
     // this.setState({ pixelToken })
     console.log("\n")
-    const nbOfPixels = await myContract.methods.nbOfPixels().call().then((a)=>{console.log(a);}).catch((error)=>{console.log("\n")})
+    const nbOfPixels = await myContract.methods.nbOfPixels().call().then((a)=>{console.log(a);}).catch((error)=>{console.log(error)})
     console.log("nbOfPixels:", nbOfPixels)
     this.setState({ nbOfPixels: nbOfPixels})
 
