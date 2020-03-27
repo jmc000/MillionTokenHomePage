@@ -3,15 +3,23 @@ import Web3 from 'web3';
 import './App.css';
 
 
-class About extends Component {
+function About() {
 
-    render() {
-        return(
-            <div>
-                <h1>About page</h1>
-            </div>
-        );
-    }
+    return(
+        <div>
+            <h1>About page</h1>
+            <footer class="footer">
+                <br/><br/><br/>
+                <address title="contact">
+                    <a>You contact contact us by</a> <a href="martincocher.jeremy@gmail.com"> mail</a>
+                    <br/>
+                    <a>You can have a look to our </a> <a href="https://github.com/GROOOOAAAARK/OneMillionDollarProject">github repesitory</a>
+                </address>
+                <br/>
+            </footer>
+        </div>
+
+    );
 
 }
 
