@@ -11,8 +11,7 @@ class App extends Component {
     super(props)
     this.state = {
       account: '',
-      nbOfPixels: 999,
-      lines: 999
+      nbOfPixels: 999
     }
   }
   
@@ -20,20 +19,15 @@ class App extends Component {
     const web3 = new Web3(Web3.givenProvider || "htpp://localhost:8545")
     Web3.givenProvider.enable()
     const network = await web3.eth.net.getNetworkType()
+    console.log("network:",network)
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0]})
 
     //load the smart contract
     var myContract = new web3.eth.Contract(PIXEL_TOKEN_ABI, PIXEL_TOKEN_ADDRESS);
-    // this.setState({ pixelToken })
-    console.log("\n")
-    const nbOfPixels = await myContract.methods.nbOfPixels().call().then((a)=>{console.log(a);}).catch((error)=>{console.log(error)})
-    console.log("nbOfPixels:", nbOfPixels)
+    //get the nb of pixels created
+    const nbOfPixels = await myContract.methods.nbOfPixels().call()
     this.setState({ nbOfPixels: nbOfPixels})
-
-    const abc = await myContract.methods.lignesPixelImage().call().then((a)=>{console.log(a);}).catch((error)=>{console.log("\n")})
-    console.log("_ abc _",abc)
-    this.setState({ lines: abc})
   }
 
   componentWillMount() {
@@ -47,7 +41,6 @@ class App extends Component {
         <h1>Hello, world!</h1>
         <p>Your account: {this.state.account}</p>
         <p>Number of pixels: {this.state.nbOfPixels}</p>
-        <p>Number of lines: {this.state.lines}</p>
       </div>
     );
   }
