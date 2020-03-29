@@ -3,14 +3,52 @@ import Web3 from 'web3';
 import './App.css';
 import { PIXEL_TOKEN_ABI, PIXEL_TOKEN_ADDRESS } from './config.js';
 
+
+const labelStyle = {
+    "borderRadius":"5px","backgroundColor":"#f2f2f2","padding":"15px",
+    "margin":"auto","width":"50%"
+};
+const inputStyle = {
+    "width":"100%",
+    "padding":"12px 20px",
+    "margin":"8px 0",
+    "display":"inline-block",
+    "border":"1px solid #ccc",
+    "borderRadius":"4px",
+    "boxSizing":"border-box"
+}
+const submitStyle = {
+    "width":"100%",
+    "backgroundColor":"#585C6B",
+    "color":"white",
+    "padding":"14px 20px",
+    "margin":"8px 0",
+    "border":"none",
+    "borderRadius":"4px",
+    "cursor":"pointer"
+}
+
+
 class Purchase extends Component {
 
     constructor(props) {
       super(props)
       this.state = {
+        urlLink: '',
+        mouseMsg: '',
+        lineCoord: '',
+        colCoord: '',
         account: '',
-        nbOfPixels: 999
+        nbOfPixels: 999,
+        pixelId: ''
       }
+
+        // this.handleLineChange = this.handleLineChange.bind(this);
+        // this.handleColChange = this.handleColChange.bind(this);
+        this.handlePixelChange = this.handlePixelChange.bind(this);
+        this.handleUrlChange = this.handleUrlChange.bind(this);
+        this.handleMsgChange = this.handleMsgChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     
     async loadBlockchainData() {
@@ -27,77 +65,81 @@ class Purchase extends Component {
       const nbOfPixels = await myContract.methods.nbOfPixels().call()
       this.setState({ nbOfPixels: nbOfPixels})
         
-    //   var i;
-    //   var j;
-    //   for(i=1;i<10;i++){
-    //       for(j=1;j<10;j++){
-    //         if (i !== 1 && j !== 1){
-    //             await myContract.methods.createPixel(i,j,true).send({from: '0x191FC2305d6C98291E68a5bD23908D9036Aa0175'})
-    //         }
-    //       }
-    //   }
-    //   const nbOfPixels2 = await myContract.methods.nbOfPixels().call()
-    //   this.setState({ nbOfPixels: nbOfPixels2})
     }
+
+    handleColChange(event) {
+        this.setState({colCoord: event.target.value});
+    }
+    handleLineChange(event) {
+        this.setState({lineCoord: event.target.value});
+      }
+    handleUrlChange(event) {
+        this.setState({urlLink: event.target.value});
+      }
+    handleMsgChange(event) {
+    this.setState({mouseMsg: event.target.value});
+    }
+    handlePixelChange(event) {
+        this.setState({pixelId: event.target.value});
+    }
+
+    handleSubmit(event) {
+        alert('To finalize the process please accept the metamask tx.' + this.state.value);
+        event.preventDefault();
+        this.buyPixel();
+      }
 
     componentWillMount() {
     //   this.loadBlockchainData()
         // this.createPixel()
     }
 
-  
+    async buyPixel(){
+        const web3 = new Web3(Web3.givenProvider || "htpp://localhost:8545")
+        Web3.givenProvider.enable()
+        var myContract = new web3.eth.Contract(PIXEL_TOKEN_ABI, PIXEL_TOKEN_ADDRESS);
+        const userAddress = await web3.eth.getAccounts()
+        // const pixelId = await myContract.methods.searchTokenByCoord(this.state.lineCoord,this.state.colCoord).call()
+        console.log("pixelId:",this.state.pixelId)
+        await myContract.methods.buyPixel(this.state.pixelId).send({from: userAddress[0], value: web3.utils.toWei('1', 'shannon')})
+    }
+   
     render() {
       return(
         <div>
-            <h1 className="textAlign">Purchases</h1>
+            <br/>
+            <form style={labelStyle} onSubmit={this.handleSubmit}>
+                <h1 className="textAlign">Buy a pixel</h1>
+                <label >
+                    Pixel id:
+                    <input style={inputStyle} type="number" min="1" max="1000000" required value={this.state.pixelId} onChange={this.handlePixelChange}/>
+                </label><br/>
+                <label>
+                    Enter the url to which your pixel will redirect:
+                    <input style={inputStyle} type="url" required value={this.state.urlLink} onChange={this.handleUrlChange} />
+                </label><br/>
+                <label>
+                    Enter the message that will appear when someone has the mouse on your Pixel:
+                    <input style={inputStyle} type="text" required value={this.state.mouseMsg} onChange={this.handleMsgChange} />
+                </label><br/>
+                <input style={submitStyle} type="submit" value="Buy pixel"/>
+            </form>
 
             <br/><br/>
-            <label for="text">Enter the url to which your pixel will redirect: </label>&nbsp;&nbsp;
-            <input type="text" id="text" name="text" accept="integer" width="10"/>
-            <br/>
-            <label for="text">Enter the message that will appear when someone has the mouse on your Pixel: </label>&nbsp;&nbsp;
-            <input type="text" id="text" name="text" accept="integer" width="10"/>
-            <br/>
-            <label for="file">Import your image file: </label>&nbsp;&nbsp;
-            <input type="file" id="file" name="file" accept="image/png, image/jpeg"/>
-            <br/><br/><br/>
-
-            <a>
-                <button>Cancel</button>
-            </a>&nbsp;&nbsp;
-            <a><button>Buy</button></a>
-            <br/><br/><br/><br/>
-            <a>
-                <button onClick={createPixel}>Create a Pixel !</button>
-            </a>
+            <footer className="footerStyle">
+                <br/>
+                <address title="contact">
+                    <a>You contact contact us by</a> <a href="martincocher.jeremy@gmail.com"> mail</a>
+                    <br/>
+                    <a>You can have a look to our </a> <a href="https://github.com/GROOOOAAAARK/OneMillionDollarProject/tree/jeremy" target="blank">github repesitory</a>
+                </address>
+                <br/>
+            </footer>
         </div>
     );
     }
 }
 
-
-async function createPixel(){
-    const web3 = new Web3(Web3.givenProvider || "htpp://localhost:8545")
-    Web3.givenProvider.enable()
-    var i = 1;
-    var j = 1;
-    var myContract = new web3.eth.Contract(PIXEL_TOKEN_ABI, PIXEL_TOKEN_ADDRESS);
-    var notAvailablePair = await myContract.methods.pairNotAvailable(i,j).call()
-    while(notAvailablePair === true){
-        if(j<1000){
-            j += 1;
-        }
-        else{
-            i += 1;
-            j = 1;
-        }
-        notAvailablePair = await myContract.methods.pairNotAvailable(i,j).call()
-        //TO DO: if i = j = 1000 -> STOP !!!!!!!
-    }
-    const userAddress = await web3.eth.getAccounts()
-    await myContract.methods.createPixel(i,j,true).send({from: userAddress[0]})
-    
-}
 
 
 

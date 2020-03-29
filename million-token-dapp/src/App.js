@@ -7,6 +7,7 @@ import About from './About';
 import School from './School';
 import Homepage from './Homepage';
 import Purchase from './Purchase';
+import PixelsInfo from './PixelsInfo';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
@@ -49,18 +50,17 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={Homepage}/>
               <Route path="/homepage" exact component={Homepage}/>
+              <Route path="/pixelinfo" exact component={PixelsInfo}/>
               <Route path="/purchase" exact component={Purchase}/>
               <Route path="/about" component={About}/>
               <Route path="/school" component={School}/>
             </Switch>
           </div>
-          <div className="web3_test">
-            {/* <h1>Hello, world!</h1>
-            <p>Your account: {this.state.account}</p> */}
+          {/* <div className="web3_test">
             <br/><br/><br/><br/><br/>
             <p>Your ethereum address: {this.state.account}</p>
             <p>Number of pixels: {this.state.nbOfPixels}</p>
-          </div>
+          </div> */}
         </div>
       </Router>
     );

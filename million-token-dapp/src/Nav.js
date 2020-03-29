@@ -24,11 +24,11 @@ function Nav() {
                 <Link style={navStyle} to='/homepage'>
                     <li>Home page</li>
                 </Link>
+                <Link style={navStyle} to='/pixelinfo'>
+                    <li>Pixel Info</li>
+                </Link>
                 <Link style={navStyle} to='/purchase'>
                     <li>Purchase</li>
-                </Link>
-                <Link style={navStyle} to='/about'>
-                    <li>About</li>
                 </Link>
                 <Link style={navStyle} to='/school'>
                     <li>School</li>

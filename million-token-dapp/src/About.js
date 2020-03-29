@@ -7,9 +7,10 @@ function About() {
 
     return(
         <div>
+            <br/><br/>
             <h1>About page</h1>
-            <footer class="footer">
-                <br/><br/><br/>
+            <footer className="footerStyle">
+                <br/>
                 <address title="contact">
                     <a>You contact contact us by</a> <a href="martincocher.jeremy@gmail.com"> mail</a>
                     <br/>

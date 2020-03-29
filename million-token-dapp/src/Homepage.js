@@ -18,7 +18,8 @@ function Homepage(){
                             {/* <div id="pixels" style="z-index:1"> */}
                             <div id="pixels">
                                 <map name="Map" id="Map">
-                                    <area onmouseover="d(this)" onmouseout="e(this)" shape="rect" coords="630,310,640,320" href="http://www.getpixel.net/" title="getpixel.net, stock photography"/>
+                                <area onmouseover="d(this)" onmouseout="e(this)" shape="rect" coords="0,0,10,1000" href="http://www.mynewbritain.com/" title="CECI EST UN TEST"/>
+                                    {/* <area onmouseover="d(this)" onmouseout="e(this)" shape="rect" coords="630,310,640,320" href="http://www.getpixel.net/" title="getpixel.net, stock photography"/>
                                     <area onmouseover="d(this)" onmouseout="e(this)" shape="rect" coords="850,50,860,60" href="http://www.mynewbritain.com/" title="MyNewBritain.com"/>
                                     <area onmouseover="d(this)" onmouseout="e(this)" shape="rect" coords="390,280,420,310" href="http://www.pandasoftware.com/" title="PC infected? Free Spyware Scan - PandaSoftware.com"/>
                                     <area onmouseover="d(this)" onmouseout="e(this)" shape="rect" coords="690,560,700,570" href="http://www.frozenweb.co.uk/" title="FrozenWeb.co.uk UK Web Hosting Specialists"/>
@@ -3324,7 +3325,7 @@ function Homepage(){
                                 <area onmouseover="d(this)" onmouseout="e(this)" shape="rect" coords="120,380,130,390" href="http://ospei.com/d2" title="This is the biggest heart on this page"/>
                                 <area onmouseover="d(this)" onmouseout="e(this)" shape="rect" coords="130,380,140,390" href="http://ospei.com/d3" title="This is the biggest heart on this page"/>
                                 <area onmouseover="d(this)" onmouseout="e(this)" shape="rect" coords="140,380,150,390" href="http://ospei.com/d4" title="This is the biggest heart on this page"/>
-                                        
+                                         */}
                                 </map>
                                 {/* <img name="twee" id="twee" src="./index_files/image-map.png" width="1000" height="1000" border="0" ismap="" usemap="#Map" style="position: absolute; top: 0px; left: 0px; border: none"/><img name="een" id="een" src="./index_files/image-map(1).png" width="2000" height="2000" border="0" style="position: absolute; top: 0px; left: 0px; clip: rect(0px, 100px, 100px, 0px); border: black 2px solid; background: url(bg20.gif); display:none"/><img src="./index_files/neg.gif" name="neg" id="neg" width="1000" height="1000" style="position:absolute;top:0px;left:0px;display:none"/> */}
                                 <img name="twee" id="twee" src="./index_files/image-map.png" width="1000" height="1000" border="0" ismap="" usemap="#Map"/>
@@ -3337,13 +3338,13 @@ function Homepage(){
                     </tbody>
                 </table>
             </center>
-            
-            <footer class="footer">
-                <br/><br/><br/>
+            <br/><br/>
+            <footer className="footerStyle">
+                <br/>
                 <address title="contact">
                     <a>You contact contact us by</a> <a href="martincocher.jeremy@gmail.com"> mail</a>
                     <br/>
-                    <a>You can have a look to our </a> <a href="https://github.com/GROOOOAAAARK/OneMillionDollarProject">github repesitory</a>
+                    <a>You can have a look to our </a> <a href="https://github.com/GROOOOAAAARK/OneMillionDollarProject/tree/jeremy" target="blank">github repesitory</a>
                 </address>
                 <br/>
             </footer>
