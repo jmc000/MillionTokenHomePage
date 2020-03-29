@@ -17,6 +17,11 @@ contract PixelToken{
     constructor() public {
         contractOwner = msg.sender;
         totalToken = lignesPixelImage * colonnesPixelImage;
+        for (uint i = 480; i < 520; i ++){
+            for (uint j = 480; j < 520; j ++){
+                createPixel(i,j,true);
+            }
+        }
     }
 
     struct Pixel

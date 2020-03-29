@@ -6,6 +6,62 @@ nav{
     background: rgb(73,79,82);
     color: white;
 }
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+  }
+
+h2 {
+    text-align: center;
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+  }
+
+.aEsilv {
+    color: black;
+    font-weight: bold;
+}
+
+.bouttonStyle {
+    width:"100%";
+    background-color:"#585C6B";
+    color:"white";
+    padding:"14px 20px";
+    margin:"8px 0";
+    border:"none";
+    border-radius: "4px";
+    cursor:"pointer"
+}
+
+
+
+.disclaimer{
+    color: red;
+    font-weight: bold;
+}
+
+.container {
+    min-width: 30em;
+    max-width: 86%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.textCenter {
+    text-align: center;
+}
+.displayFelx {
+    display: inline-block;
+  }
 
 .nav-links{
     width: 40%;
@@ -16,5 +72,16 @@ nav{
 }
 
 .textAlign{
+    text-align: center;
+}
+
+.footerStyle{
+    position: static;
+    height: min-content;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #232633;
+    color: white;
     text-align: center;
 }
