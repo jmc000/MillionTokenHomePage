@@ -131,7 +131,7 @@ class Purchase extends Component {
                 <address title="contact">
                     <a>You contact contact us by</a> <a href="martincocher.jeremy@gmail.com"> mail</a>
                     <br/>
-                    <a>You can have a look to our </a> <a href="https://github.com/GROOOOAAAARK/OneMillionDollarProject/tree/jeremy" target="blank">github repesitory</a>
+                    <a>You can have a look to our </a> <a href="https://github.com/GROOOOAAAARK/OneMillionDollarProject/tree/jeremy" target="_blank">github repesitory</a>
                 </address>
                 <br/>
             </footer>
