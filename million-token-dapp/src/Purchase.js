@@ -40,7 +40,8 @@ class Purchase extends Component {
         colCoord: '',
         account: '',
         nbOfPixels: 999,
-        pixelId: ''
+        pixelId: '',
+        pixelsAvailableForSale: []
       }
 
         // this.handleLineChange = this.handleLineChange.bind(this);
@@ -64,6 +65,19 @@ class Purchase extends Component {
       //get the nb of pixels created
       const nbOfPixels = await myContract.methods.nbOfPixels().call()
       this.setState({ nbOfPixels: nbOfPixels})
+        
+      var k=0
+      var count=0
+      while(k < nbOfPixels){
+        var availablePixel = await myContract.methods.pixelForSale(k).call()
+        if (availablePixel.id !== '0'){
+            let prevState2 = this.state.pixelsAvailableForSale.slice();
+            prevState2[count] = availablePixel.id
+            this.setState({pixelsAvailableForSale: prevState2})
+            count ++
+        }
+        k++
+      }
         
     }
 
@@ -90,7 +104,7 @@ class Purchase extends Component {
       }
 
     componentWillMount() {
-    //   this.loadBlockchainData()
+        this.loadBlockchainData()
         // this.createPixel()
     }
 
@@ -108,6 +122,17 @@ class Purchase extends Component {
       return(
         <div>
             <br/>
+            <br/><br/>
+                <div style={labelStyle}>
+                    <h2>Pixels available for sale</h2>
+                    <p><strong>Id of pixels available for sale:</strong> {
+                            this.state.pixelsAvailableForSale.length ? this.state.pixelsAvailableForSale.map((itemTestArray) =>
+                            (<span> {itemTestArray},</span>)) : '-'
+                            }
+                        </p>
+                </div>
+            
+                <br/><br/>
             <form style={labelStyle} onSubmit={this.handleSubmit}>
                 <h1 className="textAlign">Buy a pixel</h1>
                 <label >

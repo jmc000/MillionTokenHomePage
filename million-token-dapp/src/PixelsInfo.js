@@ -78,13 +78,6 @@ class PixelsInfo extends Component{
                 this.setState({pixelsList: prevState});
                 count ++
             }
-            var availablePixel = await myContract.methods.pixelForSale(k).call()
-            if (availablePixel.id !== '0'){
-                let prevState2 = this.state.pixelsAvailableForSale.slice();
-                prevState2[count2] = availablePixel.id
-                this.setState({pixelsAvailableForSale: prevState2})
-                count2 ++
-            }
             k++
         }
         this.setState({nbOfPixelsOwn: count})
@@ -185,15 +178,7 @@ class PixelsInfo extends Component{
                 </div>
 
 
-                <br/><br/>
-                <div style={labelStyle}>
-                    <h2 srtyle={h2Style}>Pixels available for sale</h2>
-                    <p><strong>Id of pixels available for sale: </strong>{
-                            this.state.pixelsAvailableForSale.length ? this.state.pixelsAvailableForSale.map((itemTestArray) =>
-                            (<span> {itemTestArray},</span>)) : '-'
-                            }
-                        </p>
-                </div>
+                
 
                 <br/><br/>
                 <div style={labelStyle}>
