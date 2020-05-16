@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="style1.css"/>
+    <title>Purchase</title>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="test_logo.jpg" alt="logo" class="left" style="float:left;"/>
+            <p class="right" style=" text-align: right; float:right;">
+                <a class="aside">Login</a>&nbsp;</br>
+                <a class="aside">Sign out</a>
+            </p>
+            <div class="banner"><br>
+                <h1 style="text-align: center;">One Million Token Dollar Homepage</h1>
+                <h2 style="text-align:center;">This Dapp is a blockchain-updated version of the famous website 
+                    the <a href="http://www.milliondollarhomepage.com/" target="_blank">MillionDollarHomepage</a>
+                </h2>
+            </div>
+            <p style="text-align:center;">
+                <a class="nav" href="index.html">Home </a> &nbsp;|&nbsp;
+                <a class="nav" href="Purchase.html"> Purchase </a> &nbsp;|&nbsp;
+                <a class="nav" href="My_Profile.html"> My Profile </a> &nbsp;|&nbsp;
+                <a class="nav" href="About_us.html"> About us </a>
+            </p>
+        </div>
+    </header>
+    
+    <center>
+        <h1 style="text-align: center;">Purchases</h1>
+
+        <a href="#" onClick="MyWindow=window.open('Purchase_popup.html','MyWindow','width=1000,height=1000'); return false;">Select a zone</a>
+
+        </br></br>
+        <label for="text">Select the number of pixels: </label>
+        <input type="text" id="text" name="text" accept="integer">
+        </br></br>
+
+        <label for="file">Import your image file: </label>
+        <input type="file" id="file" name="file" accept="image/png, image/jpeg">
+        </br></br></br>
+
+        <a href="index.html">
+            <button>Cancel</button>
+         </a>&nbsp;&nbsp;
+         <a><button>Buy</button></a>
+
+    </center>
+    
+
+
+    </body>
+</html>

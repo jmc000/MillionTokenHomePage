@@ -1,0 +1,113 @@
+.enableEthereumButton {
+  background-color: #037dd6;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+/*selecteur universel*/
+*
+{
+  color:black
+}
+h1
+{
+  text-align: center;
+}
+p
+{
+  font-size: small;
+  font-family: "Arial Black", Arial, Verdana, sans-serif;
+}
+
+
+/*class*/
+
+.left{
+  text-align: left;
+}
+.right{
+  text-align: right;
+}
+.row{
+    width: 390px;
+  }
+.row div{
+    float:left;
+    width: 50px;
+    padding: 25px;
+    border: 5px solid black;
+    margin: 10px;
+  }
+
+
+  
+  /**/
+  .main {
+    flex-direction: column;
+    display: flex;
+  }
+  
+  .tab_ul {
+      list-style: none;
+  }
+  .tab_li {
+      margin: 0 0 10px 0;
+      display: inline-block;
+  }
+  .tab_button {
+      border: 1;
+      line-height: 2.5;
+      padding: 0 20px;
+      font-size: 1rem;
+      text-align: center;
+      border-radius: 50px;
+      margin-right: 2em;
+      background-color: rgba(0,0,255,0.1);
+  }
+  .tab_references {
+  
+      background-color: rgba(0,255,0,0.1);
+  }
+  
+  .banner {
+      min-width: 30em;
+      max-width: 86%;
+      margin-right: auto;
+      margin-left: auto;
+  }
+  
+  .main{
+    min-width: 30em;
+    max-width: 86%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .block_section{
+    display: flex;
+  }
+  .block_text {
+    margin-right: 1em;
+  }
+  .block_image{
+    display: inline-block;
+    margin-right: 10em;
+    width: 190px;
+    margin-top: 0px;
+  }
+  
+  .footer{
+    text-align: center;
+  }
+  
+  .block {
+    display: inline-block;
+    margin-right: 7em;
+    width: 210px;
+    margin-top: 0px;
+  }
